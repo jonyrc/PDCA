@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- <script type="text/javascript" src="mdb/js/mdb.min.js"></script> -->
+		<script type="text/javascript" src="mdb/js/jquery.js"></script>
+		<script type="text/javascript" src="check.js"></script>
+		<link rel="stylesheet" href="mdb/css/bootstrap.min.css">
+		<link rel="stylesheet" href="mdb/css/mdb.min.css">
+		<link rel="stylesheet" href="style.css">
+		<link rel="icon" type="image/png" href="favicon.png"/>
+		<title>Check</title>
+	</head>
+<body>
+	 <div>
+		<h1>Plan</h1>
+		<div>
+			<label><h5>Problema:</h5></label>
+			<label id="problemID"></label>
+		</div>
+		 <div>
+			<label><h5>Solução:</h5></label>
+			<label id="solutionID"></label>
+		</div>
+		<form>
+			<div class="row">
+				<div class="form-group" >
+					<input type="text" class="form-control" id="entrada" placeholder="Entrada" size="10">
+				</div>
+				<div class="form-group" >
+				    <input type="text" class="form-control" id="saida" placeholder="Saida" size="10">
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group" >
+				    <input type="text" class="form-control" id="ph" placeholder="PH" size="10">
+				</div>
+				<div class="form-group" >
+				    <input type="text" class="form-control" id="temperatura" placeholder="Temperatura" size="10">
+				</div>
+			</div>
+			<div class="row">
+				<a href="do.html" class="btn btn-primary">Voltar</a>
+				<a href="index.html" class="btn btn-primary">Página Inicial</a>
+				<button type="submit" class="btn btn-primary" onclick="Check()">Enviar</button>
+			</div>
+		  </form>
+	</div>
+</body>
+</html>
