@@ -9,14 +9,19 @@ window.onload = function what(){
     xmlProblem.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var problemArray = JSON.parse(this.responseText)
-            var tamanho = problemArray.length
-            console.log("o tamanho e: " + tamanho)
-            console.log(problemArray)
-            var problem = (problemArray[tamanho-1].problem)
-            actionPlan = (problemArray[tamanho-1].actionPlan)
 
-            document.getElementById('problemID').innerHTML = problem
-            document.getElementById('actionPlanID').innerHTML = actionPlan
+            if (problemArray.length == 0){
+                window.alert("Você deve preencher o 'Plan' antes do 'Do'");
+                window.location.href = "plan.html";
+            }else{
+                var tamanho = problemArray.length
+                var problem = (problemArray[tamanho-1].problem)
+                actionPlan = (problemArray[tamanho-1].actionPlan)
+    
+                document.getElementById('problemID').innerHTML = problem
+                document.getElementById('actionPlanID').innerHTML = actionPlan
+            }
+
         }
     }
 }
@@ -24,30 +29,30 @@ window.onload = function what(){
 // ======================DO PAGE======================
 
 function Do(){
-
+    event.preventDefault();
     var solution = document.getElementById("solution").value
+
+    if (solution == "") {
+        window.alert("Você não pode deixar campos vazios");
+    }else {
     //Recuperando informações de resposta do servidor
-    fetch('http://localhost:3000/solution')
-    .then(response => {
-        return response.json()
+
+    const data = { "solution": solution };
+    fetch('http://localhost:3000/solution', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
     })
-    .then(response => {
-            var xhr = new XMLHttpRequest()
-            xhr.open("POST", "http://localhost:3000/solution", true)
-            xhr.setRequestHeader("Content-Type", "application/json")
-            var data = JSON.stringify({"solution": solution})
-            console.log(data)
-            try {
-                xhr.send(data)
-                window.alert("Dados salvos!");
-                window.location.href = "check.html";
-            } catch(err) {
-                console.log("Algo deu errado: "+err)
-                window.alert("Não foi possível salvar os dados");
-            }
-    })
-    .catch(err => {
-        console.log("Não foi possível recuperar as informações necessárias: "+err)
-        window.alert("Não foi possível acessar a API de dados");
-    })
+        .then((data) => {
+            window.alert("Dados salvos!");
+            window.location.href = "check.html";
+        })
+        .catch((error) => {
+            console.log("Não foi possível recuperar as informações necessárias: " + error)
+            window.alert("Não foi possível acessar a API de dados");
+        });
+    }
+
 }

@@ -1,27 +1,28 @@
-function Plan(){
-
+function Plan() {
+    event.preventDefault();
     var problem = document.getElementById("problem").value
-    var actionplan = document.getElementById("actionPlan").value
-
-    //Recuperando informações de resposta do servidor
-    fetch('http://localhost:3000/problem')
-    .then(response => {
-            var xhr = new XMLHttpRequest()
-            xhr.open("POST", "http://localhost:3000/problem", true)
-            xhr.setRequestHeader("Content-Type", "application/json")
-            var data = JSON.stringify({"problem": problem, "actionPlan": actionplan})
-            try {
-                xhr.send(data)
+    var actionPlan = document.getElementById("actionPlan").value
+    if (problem == "" || actionPlan == "") {
+        window.alert("Você não pode deixar campos vazios");
+    }else {
+        //Recuperando informações de resposta do servidor
+        const data = { "problem": problem, "actionPlan": actionPlan };
+        fetch('http://localhost:3000/problem', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then((data) => {
                 window.alert("Dados salvos!");
                 window.location.href = "do.html";
-            } catch(err) {
-                console.log("Algo deu errado: "+err)
-                window.alert("Não foi possível salvar os dados");
-            }
+            })
+            .catch((error) => {
+                console.log("Não foi possível recuperar as informações necessárias: " + error)
+                window.alert("Não foi possível acessar a API de dados");
+            });
+    }
 
-    })
-    .catch(err => {
-        console.log("Não foi possível recuperar as informações necessárias: "+err)
-        window.alert("Não foi possível acessar a API de dados");
-    })
+
 }
