@@ -13,6 +13,9 @@ const dataInfoSchema = new mongoose.Schema({
     temperatura: {
         type: Number
     },
+    oxigenio: {
+        type: Number
+    },
     eficiencia: {
         type: Number
     },
