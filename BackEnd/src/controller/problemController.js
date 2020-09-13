@@ -8,7 +8,6 @@ router.post ('/problem', async (req, res) =>{
     try {
         const problem = new Problem(req.body);
         await problem.save();
-        console.log("entrou aqui");
         res.status(201).send({message: 'Problema cadastrado com sucesso!'});
     } catch (e) {
         res.status(500).send({message: 'Falha ao cadastrar a problem.', e});
